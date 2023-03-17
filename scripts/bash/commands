@@ -1,0 +1,19 @@
+## Main
+# Train
+python train.py --config configs/sbert/cluster_ablations/linear_cluster_bs128.yaml --num-gpus-per-machine 4 --log-every 500 --checkpoint-every 10000 --resume-from
+
+# Clusterinig
+python scripts/cluster.py --split train --min_clusters 2 --max_cluste
+
+## Downstream Tasks
+# ImageNet classification
+python linear_clf.py --down-config configs/downstream/imagenet_clf.yaml --checkpoint-path saves/checkpoints/V\?resnet50_T\?train_sbert_Ty\?dot_N\?normal_O\?sgd_D\?cosine_ID\?baseline/checkpoint_500000.pth --config configs/sbert/from_scratch/from_scratch_base.yaml
+
+# VOC Classification
+python voc_clf.py --down-config configs/downstream/voc07_clf.yaml --config configs/to_run/ft_bs1024_ni250k.yaml --checkpoint-dir <path-to-folder-containing-checkpoints> --start-iter 20000 --freq 20000
+
+# IT an TI retrieval
+python retrieval.py --down-config /u/as3ek/github/vlinfo/configs/downstream/coco_itm.yaml --config <path> --checkpoint-path <path>
+
+# Linear clf
+python linear_clf.py --down-config configs/downstream/imagenet_clf_clip.yaml --num-gpus-per-machine 4 --cpu-workers 4 --checkpoint-path path/to/epoch_29.pt  --weight-init clip
