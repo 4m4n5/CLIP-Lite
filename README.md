@@ -77,11 +77,11 @@ python scripts/coco_preprocess.py \
 ```
 
 ## Training
-Training parameters all types of VLInfo models are specified by config files (YAML) located at `./configs/`.
+First edit `factories.py` to include paths to the required datasets. Training parameters are specified by config files (YAML) located at `./configs/done/`.
 For every run a new folder will be created in the `checkpoints-dir` directory for logs and checkpoints.
 ```
 python train.py \
-    --config configs/sbert/from_scratch/from_scratch_base.yaml \
+    --config configs/sbert/from_scratch/fs_bs1024_ni250k.yaml \
     --num-gpus-per-machine 8 \
     --cpu-workers 0 \
     --checkpoints-dir saves/checkpoints
